@@ -1,0 +1,47 @@
+<?php
+// module/Album/view/album/album/index.phtml:
+
+$title = 'Shipments';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('shipment', array('action'=>'add'));?>">Add new shipment</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Shipment ID</th>
+    <th>Origin Customer</th>
+    <th>Origin Customer</th>
+    <th>Destination Customer</th>
+    <th>Destination Customer</th>
+    <th>Customer Barcode</th>
+    <th>Lot ID</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($shipments as $shipment) : 
+
+$originCustomer = $shipment->originCustomer;
+$destinationCustomer = $shipment->destinationCustomer;
+
+//var_dump($shipment);
+var_dump($originCustomer);
+?>
+<tr>
+    <td><?php echo $this->escapeHtml($shipment->CNSShipmentID);?></td>
+    <td><?php echo $originCustomer['customerID'];?></td>
+    <td><?php echo $this->escapeHtml($originCustomer['customerName']);?></td>
+    <td><?php echo $destinationCustomer['customerID'];?></td>
+    <td><?php echo $this->escapeHtml($destinationCustomer['customerName']);?></td>
+    <td><?php echo $this->escapeHtml($shipment->customerBarcode);?></td>
+    <td><?php echo $this->escapeHtml($shipment->lotID);?></td>
+    <td>
+        <a href="<?php echo $this->url('shipment',
+            array('action'=>'edit', 'id' => $shipment->CNSShipmentID));?>">Edit</a>
+        <a href="<?php echo $this->url('shipment',
+            array('action'=>'delete', 'id' => $shipment->CNSShipmentID));?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
